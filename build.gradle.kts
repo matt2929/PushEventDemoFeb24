@@ -17,3 +17,11 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.jar {
+    manifest.attributes["Main-Class"] = "org.example.Main"
+    // OR another notation
+    // manifest {
+    //     attributes["Main-Class"] = "com.example.MyMainClass"
+    // }
+}
