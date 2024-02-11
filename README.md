@@ -1,25 +1,11 @@
 # PushEventDemoFeb24
-Test pushing events in a micro-service arch
+test pulling events from a microservice architecture
 
-
-# build me
-
-# do this once: 
-brew install gradle
-
-# run me locally
+# how to run locally
 gradle wrapper
 ./gradlew build
-java -jar  build/libs/PushEventDemoFeb24-1.0-SNAPSHOT.jar
+java -jar build/libs/PushEventDemoFeb24-1.0-SNAPSHOT.jar
 
-Ran from root of package directory
-
-```shell
-docker build --no-cache  --progress plain -t demo-send-events . 
-docker run -it --rm --name test1 demo-send-events
-```
-
-
-
-
-
+# run in Docker
+docker build  --progress plain -t demo-send-events .
+docker run -it --rm --name test1 demo-send-events 
