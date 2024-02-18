@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Pusher implements Application {
 
-    private final static String QUEUE_NAME = "hello";
+
 
     public void run() throws Exception {
 

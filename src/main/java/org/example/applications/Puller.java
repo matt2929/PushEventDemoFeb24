@@ -1,10 +1,31 @@
 package org.example.applications;
 
+import org.example.rabbitmq.QueueClient;
+import org.example.rabbitmq.RABBITMQ_CONSTANTS;
+
 public class Puller implements Application {
-    @Override
     public void run() throws Exception {
-        for (int i = 0; i < 10; i++) {
-            System.out.printf("yo %d%n", i);
+
+        try (QueueClient queueClient = QueueClient.builder()
+                .userName(RABBITMQ_CONSTANTS.USERNAME)
+                .password(RABBITMQ_CONSTANTS.PASSWORD)
+                .hostname(RABBITMQ_CONSTANTS.HOSTNAME)
+                .build()) {
+            queueClient.init();
+            int count = 0;
+            while (count < 1) {
+                try {
+                    final boolean success = queueClient.getMessage();
+                    if (success) {
+                        count++;
+                    } else {
+                        System.out.println("Nothing yet...");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Thread.sleep(1000);
+            }
         }
     }
 }
