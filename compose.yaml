@@ -1,0 +1,26 @@
+services:
+  app-push:
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/push/Dockerfile
+    networks:
+      - rabbitPoc
+
+  app-pull:
+    build:
+      context: .
+      dockerfile: ./Dockerfiles/pull/Dockerfile
+    networks:
+      - rabbitPoc
+
+  rabit-mq-1:
+    hostname: rabbitmq
+    image: "rabbitmq:3-management"
+    ports:
+      - "15672:15672"
+    networks:
+      - rabbitPoc
+
+networks:
+  rabbitPoc:
+    driver: bridge
