@@ -1,25 +1,35 @@
 package org.example;
 
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.Channel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import org.example.applications.Application;
+import org.example.applications.Puller;
+import org.example.applications.Pusher;
 
-import java.net.ConnectException;
-import java.util.Optional;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        Pusher pusher = new Pusher();
-        pusher.push();
+        final Map<String, Application> applicationKeyword = new HashMap<>();
+        applicationKeyword.put("PUSH", new Pusher());
+        applicationKeyword.put("PULL", new Puller());
+        final String availableKeysStr = applicationKeyword.keySet().stream().collect(Collectors.joining(", ", "[", "]"));
+
+        System.out.println(Arrays.stream(args).collect(Collectors.joining(", ", "[", "]")));
+
+        if (args.length == 0) {
+            throw new RuntimeException(String.format("no args provided one of %s required", availableKeysStr));
+        }
+
+        final String arg = args[args.length - 1].toUpperCase();
+
+        if (!applicationKeyword.containsKey(arg)) {
+            throw new RuntimeException(String.format("provided arg '%s' is not one of %s", arg, availableKeysStr));
+        }
+
+        applicationKeyword.get(arg).run();
     }
 }
