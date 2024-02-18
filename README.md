@@ -19,14 +19,14 @@ _Note_: I won't connect because I expect a bridge Compose network to resolve Rab
 ```bash
 gradle wrapper
 ./gradlew build
-java -jar build/libs/PushEventDemoFeb24-1.0-SNAPSHOT.jar
+java -jar build/libs/PushEventDemoFeb24-1.0-SNAPSHOT.jar PUSH
 ```
 
 ### run in Docker
 
 ```bash
 docker build -f Dockerfiles/push/Dockerfile  --no-cache --progress plain -t demo-send-events .
-docker run -it --rm --name test1 demo-send-events 
+docker run -it --rm --name test1 demo-send-events  
 ```
 
 ## The Pull Application
@@ -38,7 +38,7 @@ _Note_: I won't connect because I expect a bridge Compose network to resolve Rab
 ```bash
 gradle wrapper
 ./gradlew build
-java -jar build/libs/PushEventDemoFeb24-1.0-SNAPSHOT.jar
+java -jar build/libs/PushEventDemoFeb24-1.0-SNAPSHOT.jar PULL
 ```
 
 ### run in Docker
@@ -46,5 +46,11 @@ java -jar build/libs/PushEventDemoFeb24-1.0-SNAPSHOT.jar
 ```bash
 docker build -f Dockerfiles/pull/Dockerfile  --no-cache --progress plain -t demo-pull-events .
 docker run -it --rm --name test1 demo-pull-events 
+```
+
+
+### Run it in Docker Compose
+```bash
+ docker compose up --force-recreate --build
 ```
 
