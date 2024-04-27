@@ -104,7 +104,7 @@ public class QueueClient implements AutoCloseable {
                     byte[] body) throws IOException {
 
                 final String message = new String(body, "UTF-8");
-                System.out.printf("I got a message: %s", message);
+                System.out.printf("I got a message: %s%n", message);
             }
         };
         try {

@@ -2,14 +2,18 @@ services:
   app-push:
     build:
       context: .
-      dockerfile: ./Dockerfiles/push/Dockerfile
+      args:
+        PROFILE: PUSH
+      dockerfile: ./Dockerfiles/queue-application/Dockerfile
     networks:
       - rabbitPoc
 
   app-pull:
     build:
       context: .
-      dockerfile: ./Dockerfiles/pull/Dockerfile
+      args:
+        PROFILE: PULL
+      dockerfile: Dockerfiles/queue-application/Dockerfile
     networks:
       - rabbitPoc
 

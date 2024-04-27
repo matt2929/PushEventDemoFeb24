@@ -13,7 +13,9 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.hamcrest:hamcrest:2.2")
     implementation("com.rabbitmq:amqp-client:5.20.0")
+    implementation("org.javamoney:moneta:1.3")
     implementation("com.evanlennick:retry4j:0.15.0")
     compileOnly("org.projectlombok:lombok:1.18.30")
     annotationProcessor("org.projectlombok:lombok:1.18.30")

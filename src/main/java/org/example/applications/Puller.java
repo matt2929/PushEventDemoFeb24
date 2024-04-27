@@ -12,6 +12,7 @@ public class Puller implements Application {
                 .hostname(RABBITMQ_CONSTANTS.HOSTNAME)
                 .build()) {
             queueClient.init();
+            queueClient.createQueue("test");
             int count = 0;
             while (count < 1) {
                 try {

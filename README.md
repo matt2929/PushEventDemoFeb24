@@ -25,7 +25,7 @@ java -jar build/libs/PushEventDemoFeb24-1.0-SNAPSHOT.jar PUSH
 ### run in Docker
 
 ```bash
-docker build -f Dockerfiles/push/Dockerfile  --no-cache --progress plain -t demo-send-events .
+docker build --build-arg PROFILE="PUSH"   -f Dockerfiles/queue-application/Dockerfile  --no-cache --progress plain -t demo-send-events .
 docker run -it --rm --name test1 demo-send-events  
 ```
 
@@ -44,7 +44,7 @@ java -jar build/libs/PushEventDemoFeb24-1.0-SNAPSHOT.jar PULL
 ### run in Docker
 
 ```bash
-docker build -f Dockerfiles/pull/Dockerfile  --no-cache --progress plain -t demo-pull-events .
+docker build --build-arg PROFILE="PULL"   -f Dockerfiles/queue-application/Dockerfile  --no-cache --progress plain -t demo-send-events .
 docker run -it --rm --name test1 demo-pull-events 
 ```
 

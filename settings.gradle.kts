@@ -1,4 +1,4 @@
-rootProject.name = "PushEventDemoFeb24"
+rootProject.name = "EventDemoFeb24"
 include("lib")
 
 

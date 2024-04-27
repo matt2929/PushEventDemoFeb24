@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 public class Pusher implements Application {
 
 
-
     public void run() throws Exception {
 
         try (QueueClient queueClient = QueueClient.builder()
@@ -23,7 +22,9 @@ public class Pusher implements Application {
                 .build()) {
             queueClient.init();
             queueClient.createQueue("test");
-            queueClient.sendMessage("test","foo");
+            for (int i = 0; i < 5; i++) {
+                queueClient.sendMessage("test", ""+i);
+            }
         }
     }
 }
