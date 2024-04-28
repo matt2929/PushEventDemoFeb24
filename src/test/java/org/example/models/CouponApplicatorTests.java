@@ -46,7 +46,7 @@ public class CouponApplicatorTests {
         assertThat(modifiedMapping.entrySet(), hasSize(equalTo(3)));
         assertThat(modifiedMapping.get(products.get(1).getUuid()), equalTo(Money.of(.5, "USD")));
         assertThat(modifiedMapping.get(products.get(3).getUuid()), equalTo(Money.of(1, "USD")));
-        assertThat(modifiedMapping.get(products.get().getUuid()), equalTo(Money.of(2, "USD")));
+        assertThat(modifiedMapping.get(products.get(2).getUuid()), equalTo(Money.of(2, "USD")));
     }
 
 }
