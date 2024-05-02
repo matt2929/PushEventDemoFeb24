@@ -3,6 +3,8 @@ package org.example.applications;
 import org.example.rabbitmq.QueueClient;
 import org.example.rabbitmq.RABBITMQ_CONSTANTS;
 
+import java.util.Optional;
+
 public class Puller implements Application {
     public void run() throws Exception {
 
@@ -16,8 +18,8 @@ public class Puller implements Application {
             int count = 0;
             while (count < 1) {
                 try {
-                    final boolean success = queueClient.getMessage();
-                    if (success) {
+                    final Optional<String> success = queueClient.getMessage("test");
+                    if (success.isEmpty()) {
                         count++;
                     } else {
                         System.out.println("Nothing yet...");

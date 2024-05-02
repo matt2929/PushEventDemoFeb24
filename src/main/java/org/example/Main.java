@@ -1,9 +1,7 @@
 package org.example;
 
 import com.google.common.collect.ImmutableMap;
-import org.example.applications.Application;
-import org.example.applications.Puller;
-import org.example.applications.Pusher;
+import org.example.applications.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,7 +14,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
         final Map<String, Application> applicationKeyword = ImmutableMap.of(
                 "PUSH", new Pusher(),
-                "PULL", new Puller()
+                "PULL", new Puller(),
+                "PLAYER", new Player(),
+                "DEALER", new Dealer()
         );
         final String availableKeysStr = applicationKeyword.keySet().stream().collect(Collectors.joining(", ", "[", "]"));
 

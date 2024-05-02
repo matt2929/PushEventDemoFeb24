@@ -1,4 +1,8 @@
-package org.example.models;
+package org.example.models.coupons;
+
+
+
+import org.example.models.coupons.Product;
 
 import java.util.List;
 

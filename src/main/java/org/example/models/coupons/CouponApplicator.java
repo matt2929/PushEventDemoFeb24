@@ -1,8 +1,6 @@
 package org.example.models.coupons;
 
 import lombok.Builder;
-import org.example.models.Product;
-import org.example.models.coupons.productfilters.ProductFilter;
 
 import javax.money.MonetaryAmount;
 import java.util.List;

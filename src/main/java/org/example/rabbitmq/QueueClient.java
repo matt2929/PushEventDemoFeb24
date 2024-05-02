@@ -8,14 +8,17 @@ import com.evanlennick.retry4j.config.RetryConfigBuilder;
 import com.rabbitmq.client.*;
 import jdk.jshell.spi.ExecutionControl;
 import lombok.Builder;
+import org.example.NoMessagesException;
 
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
+import static java.time.temporal.ChronoUnit.MINUTES;
 import static java.time.temporal.ChronoUnit.SECONDS;
 
 
@@ -91,29 +94,31 @@ public class QueueClient implements AutoCloseable {
         return true;
     }
 
-    public boolean getMessage() {
+    public Optional<String> getMessage(final String queueName) {
+        System.out.printf("Trying to pull message from %s%n", queueName);
         if (channel.isEmpty()){
-            return false;
+            System.out.println("There's no channel! Im gonna die....");
+            return Optional.empty();
         }
-        DefaultConsumer consumer = new DefaultConsumer(channel.get()) {
-            @Override
-            public void handleDelivery(
-                    String consumerTag,
-                    Envelope envelope,
-                    AMQP.BasicProperties properties,
-                    byte[] body) throws IOException {
-
-                final String message = new String(body, "UTF-8");
-                System.out.printf("I got a message: %s%n", message);
-            }
-        };
         try {
-            channel.get().basicConsume("test", true, consumer);
+            final Optional<GetResponse> response = Optional.ofNullable(channel.get().basicGet(queueName, true));
+            if(response.isEmpty()){
+                throw new NoMessagesException(queueName);
+            }
+            return response.map(getResponse -> new String(getResponse.getBody(), StandardCharsets.UTF_8));
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            return Optional.empty();
         }
-        return true;
+    }
+
+    public Optional<String> getMessageWithRetries(final String queueName) {
+        if (channel.isEmpty()){
+            throw new RuntimeException("No Channel");
+        }
+        Callable<Optional<String>> retrieveMessage = () -> getMessage(queueName);
+        Status<Optional<String>> connectionResult = new CallExecutorBuilder().config(getDefaultConfig()).build().execute(retrieveMessage);
+        return connectionResult.getResult();
     }
 
     @Override
@@ -129,11 +134,12 @@ public class QueueClient implements AutoCloseable {
 
     private RetryConfig getDefaultConfig() {
         return new RetryConfigBuilder().withMaxNumberOfTries(5)
-                .withFixedBackoff().withDelayBetweenTries(2, SECONDS)
+                .withFixedBackoff().withDelayBetweenTries(5, SECONDS)
                 .retryOnSpecificExceptions(
                         RuntimeException.class,
                         UnknownHostException.class,
-                        ConnectException.class
+                        ConnectException.class,
+                        NoMessagesException.class
                 )
                 .build();
     }

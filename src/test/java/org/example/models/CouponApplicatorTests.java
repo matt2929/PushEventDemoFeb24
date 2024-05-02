@@ -2,8 +2,9 @@ package org.example.models;
 
 import com.google.common.collect.ImmutableList;
 import org.example.models.coupons.CouponApplicator;
-import org.example.models.coupons.productfilters.AttributeBasedProductFilter;
-import org.example.models.coupons.productfilters.FirstXProductFilter;
+import org.example.models.coupons.Product;
+import org.example.models.coupons.AttributeBasedProductFilter;
+import org.example.models.coupons.FirstXProductFilter;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +24,6 @@ public class CouponApplicatorTests {
 
     @Test
     public void getCouponValue() {
-
         final MonetaryAmount monetaryAmount = Monetary.getDefaultAmountFactory()
                 .setCurrency("USD")
                 .setNumber(1)

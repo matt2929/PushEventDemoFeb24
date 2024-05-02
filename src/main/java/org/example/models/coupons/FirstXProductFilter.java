@@ -1,7 +1,6 @@
-package org.example.models.coupons.productfilters;
+package org.example.models.coupons;
 
 import com.google.common.collect.ImmutableList;
-import org.example.models.Product;
 
 import java.util.Comparator;
 import java.util.List;
@@ -15,7 +14,6 @@ public class FirstXProductFilter extends ProductFilter {
         this.x = x;
         this.productFilter = Optional.of(productFilter);
     }
-
 
     @Override
     public List<Product> applyFilter(List<Product> products) {

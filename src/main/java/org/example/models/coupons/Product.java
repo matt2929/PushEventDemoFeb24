@@ -1,4 +1,4 @@
-package org.example.models;
+package org.example.models.coupons;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,18 +1,25 @@
 services:
-  app-push:
+  app-play-1:
     build:
       context: .
       args:
-        PROFILE: PUSH
+        PROFILE: PLAYER
       dockerfile: ./Dockerfiles/queue-application/Dockerfile
     networks:
       - rabbitPoc
-
-  app-pull:
+  app-play-2:
     build:
       context: .
       args:
-        PROFILE: PULL
+        PROFILE: PLAYER
+      dockerfile: Dockerfiles/queue-application/Dockerfile
+    networks:
+      - rabbitPoc
+  app-dealer:
+    build:
+      context: .
+      args:
+        PROFILE: DEALER
       dockerfile: Dockerfiles/queue-application/Dockerfile
     networks:
       - rabbitPoc
