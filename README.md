@@ -55,7 +55,7 @@ docker run -it --rm --name test1 demo-pull-events
 ```
 
 ```bash
-curl -d "@data.json" -X POST  http://localhost:8080/createEmployee
+curl -d "@data.json" -X POST  http://localhost:8080/createEmployee -H 'Content-Type: application/json'
 ```
 
 ```json
@@ -65,4 +65,7 @@ curl -d "@data.json" -X POST  http://localhost:8080/createEmployee
   "monetaryAmount": 1.0
 }
 ```
+
+mongodb:
+http://localhost:8081/
 

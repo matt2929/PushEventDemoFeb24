@@ -2,6 +2,7 @@ package org.example.models.rest;
 
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
+import org.example.models.MongoDbClient;
 import org.example.models.coupons.Product;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,11 +19,15 @@ public class EmployeeController {
 
   @GetMapping("/employees/{id}")
   public Product greeting(@PathVariable UUID id) {
+    try (MongoDbClient mongoDbClient = new MongoDbClient()) {
+      mongoDbClient.init();
+    }
     return Product.builder()
         .uuid(id)
         .itemType("foo")
         .monetaryAmount(1d)
         .build();
+
   }
 
   @PostMapping("/createEmployee")

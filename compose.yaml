@@ -1,5 +1,7 @@
 services:
   app-play-1:
+    ports:
+      - 8080:8080
     build:
       context: .
       args:
@@ -15,7 +17,7 @@ services:
     networks:
       - rabbitPoc
   mongo:
-    image: mongo
+    image: mongo:7.0-rc
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
@@ -23,7 +25,7 @@ services:
     networks:
       - rabbitPoc
   mongo-express:
-    image: mongo-express
+    image: mongo-express:1.0.2-20
     restart: always
     ports:
       - 8081:8081

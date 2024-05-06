@@ -43,6 +43,7 @@ dependencies {
     testCompileOnly("org.projectlombok:lombok:1.18.30")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
     implementation("com.google.guava:guava:32.1.2-jre")
+    implementation("org.mongodb:mongodb-driver-sync:5.1.0")
 }
 
 tasks.test {

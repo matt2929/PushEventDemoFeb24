@@ -31,11 +31,10 @@
     </module>
     <!-- https://checkstyle.org/filters/suppressionfilter.html -->
     <module name="SuppressionFilter">
-        <property name="file" value="${org.checkstyle.google.suppressionfilter.config}"
+        <property name="file" value="${config_loc}/suppressions.xml"
                   default="checkstyle-suppressions.xml"/>
         <property name="optional" value="true"/>
     </module>
-
     <!-- Checks for whitespace                               -->
     <!-- See http://checkstyle.org/checks/whitespace/index.html -->
     <module name="FileTabCharacter">
@@ -365,6 +364,7 @@
                       default="checkstyle-xpath-suppressions.xml"/>
             <property name="optional" value="true"/>
         </module>
+
         <module name="SuppressWarningsHolder"/>
         <module name="SuppressionCommentFilter">
             <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
