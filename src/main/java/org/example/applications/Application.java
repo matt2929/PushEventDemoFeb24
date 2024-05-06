@@ -2,6 +2,6 @@ package org.example.applications;
 
 public interface Application {
 
-    public abstract void run() throws Exception;
+  void run(final String[] args) throws Exception;
 
 }

@@ -2,7 +2,7 @@
 # ref: https://docs.docker.com/develop/develop-images/multistage-build/
     
 # temp container to build using gradle
-FROM gradle:8-jdk11 AS TEMP_BUILD_IMAGE
+FROM gradle:8-jdk17 AS TEMP_BUILD_IMAGE
 WORKDIR /usr/app/
 COPY . .
 RUN ls /usr/app/
@@ -10,7 +10,7 @@ RUN gradle build
 
 # actual container
 
-FROM openjdk:11
+FROM openjdk:17
 ARG PROFILE
 ENV PROFILE_ENV=${PROFILE}
 ENV ARTIFACT_NAME=EventDemoFeb24-1.0-SNAPSHOT.jar

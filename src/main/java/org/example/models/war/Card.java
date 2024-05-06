@@ -7,18 +7,18 @@ import lombok.Getter;
 @Getter
 public class Card {
 
-    Suit suit;
-    int value;
+  Suit suit;
+  int value;
 
-    public static Card fromString(String str) {
-        String[] split = str.split(":");
-        Suit suit = Suit.valueOf(split[0]);
-        int value = Integer.parseInt(split[1]);
-        return new Card(suit, value);
-    }
+  public static Card fromString(String str) {
+    String[] split = str.split(":");
+    Suit suit = Suit.valueOf(split[0]);
+    int value = Integer.parseInt(split[1]);
+    return new Card(suit, value);
+  }
 
-    public String toString() {
-        return String.format("%s:%d", suit.name(), value);
-    }
+  public String toString() {
+    return String.format("%s:%d", suit.name(), value);
+  }
 
 }

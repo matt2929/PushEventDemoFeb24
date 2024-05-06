@@ -1,8 +1,8 @@
 package org.example.models.war;
 
 public enum Suit {
-    HEARTS,
-    CLUBS,
-    DIAMONDS,
-    SPADES
+  HEARTS,
+  CLUBS,
+  DIAMONDS,
+  SPADES
 }

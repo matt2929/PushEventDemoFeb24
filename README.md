@@ -1,5 +1,6 @@
 # PushEventDemoFeb24
-This directory consists of a docker compose application. 
+
+This directory consists of a docker compose application.
 
 1) A locally built Java push service that pushes messages to a rabbit mq service
 2) A locally built Java pull service that polls messages from a rabbit mq service
@@ -8,7 +9,6 @@ This directory consists of a docker compose application.
 1 and 2 are built in this directory via gradle and have their respective Dockerfiles built and provided to compose.
 
 # how to run locally
-
 
 ## The Push Application
 
@@ -48,9 +48,21 @@ docker build --build-arg PROFILE="PULL"   -f Dockerfiles/queue-application/Docke
 docker run -it --rm --name test1 demo-pull-events 
 ```
 
-
 ### Run it in Docker Compose
+
 ```bash
  docker compose up --force-recreate --build
+```
+
+```bash
+curl -d "@data.json" -X POST  http://localhost:8080/createEmployee
+```
+
+```json
+{
+  "uuid": "6eccfccf-05aa-414c-8857-f7c1889722a9",
+  "itemType": "foo",
+  "monetaryAmount": 1.0
+}
 ```
 

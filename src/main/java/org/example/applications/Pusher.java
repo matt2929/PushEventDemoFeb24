@@ -1,30 +1,23 @@
 package org.example.applications;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
 import org.example.rabbitmq.QueueClient;
-import org.example.rabbitmq.RABBITMQ_CONSTANTS;
-
-import java.net.ConnectException;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
+import org.example.rabbitmq.RabbitMqConstants;
 
 public class Pusher implements Application {
 
 
-    public void run() throws Exception {
+  public void run(String[] args) throws Exception {
 
-        try (QueueClient queueClient = QueueClient.builder()
-                .userName(RABBITMQ_CONSTANTS.USERNAME)
-                .password(RABBITMQ_CONSTANTS.PASSWORD)
-                .hostname(RABBITMQ_CONSTANTS.HOSTNAME)
-                .build()) {
-            queueClient.init();
-            queueClient.createQueue("test");
-            for (int i = 0; i < 5; i++) {
-                queueClient.sendMessage("test", ""+i);
-            }
-        }
+    try (QueueClient queueClient = QueueClient.builder()
+        .userName(RabbitMqConstants.USERNAME)
+        .password(RabbitMqConstants.PASSWORD)
+        .hostname(RabbitMqConstants.HOSTNAME)
+        .build()) {
+      queueClient.init();
+      queueClient.createQueue("test");
+      for (int i = 0; i < 5; i++) {
+        queueClient.sendMessage("test", "" + i);
+      }
     }
+  }
 }

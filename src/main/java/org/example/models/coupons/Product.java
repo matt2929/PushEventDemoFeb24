@@ -1,17 +1,15 @@
 package org.example.models.coupons;
 
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Getter;
-
-import javax.money.MonetaryAmount;
-import java.util.UUID;
 
 @Builder
 @Getter
 public class Product {
 
-    UUID uuid;
-    String itemType;
-    MonetaryAmount monetaryAmount;
+  UUID uuid;
+  String itemType;
+  Double monetaryAmount;
 
 }
