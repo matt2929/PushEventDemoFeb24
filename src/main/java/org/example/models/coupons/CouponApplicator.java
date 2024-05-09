@@ -13,15 +13,15 @@ public class CouponApplicator {
   public ProductFilter productFilter;
   public PriceModifier priceModifier;
 
-  public Map<UUID, Double> modifyTotalCost(List<Product> productList) {
-    return productFilter.applyFilter(productList)
+  public Map<String, Double> modifyTotalCost(List<ProductEntity> productEntityList) {
+    return productFilter.applyFilter(productEntityList)
         .stream()
-        .collect(Collectors.toMap(Product::getUuid,
+        .collect(Collectors.toMap(ProductEntity::getUuid,
             product -> priceModifier.modifyPrice(product)));
   }
 
   public interface PriceModifier {
-    Double modifyPrice(Product product);
+    Double modifyPrice(ProductEntity productEntity);
   }
 
 }

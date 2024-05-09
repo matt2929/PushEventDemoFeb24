@@ -15,14 +15,14 @@ public class FirstxProductFilter extends ProductFilter {
   }
 
   @Override
-  public List<Product> applyFilter(List<Product> products) {
+  public List<ProductEntity> applyFilter(List<ProductEntity> productEntities) {
     if (this.productFilter.isEmpty()) {
-      return products.stream().sorted(
-          Comparator.comparing(Product::getMonetaryAmount)
+      return productEntities.stream().sorted(
+          Comparator.comparing(ProductEntity::getMonetaryAmount)
       ).limit(numProducts).collect(ImmutableList.toImmutableList());
     } else {
-      return productFilter.get().applyFilter(products).stream().sorted(
-          Comparator.comparing(Product::getMonetaryAmount)
+      return productFilter.get().applyFilter(productEntities).stream().sorted(
+          Comparator.comparing(ProductEntity::getMonetaryAmount)
       ).limit(numProducts).collect(ImmutableList.toImmutableList());
     }
   }

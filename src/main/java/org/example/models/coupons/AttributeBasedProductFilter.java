@@ -7,25 +7,25 @@ import java.util.function.Function;
 
 public class AttributeBasedProductFilter<T> extends ProductFilter {
 
-  Function<Product, T> attribute;
+  Function<ProductEntity, T> attribute;
   T expectation;
   Optional<ProductFilter> productFilter;
 
 
-  public AttributeBasedProductFilter(Function<Product, T> attribute, T expectation) {
+  public AttributeBasedProductFilter(Function<ProductEntity, T> attribute, T expectation) {
     this.attribute = attribute;
     this.expectation = expectation;
     this.productFilter = Optional.empty();
   }
 
   @Override
-  public List<Product> applyFilter(List<Product> products) {
+  public List<ProductEntity> applyFilter(List<ProductEntity> productEntities) {
     if (this.productFilter.isEmpty()) {
-      return products.stream().filter(
+      return productEntities.stream().filter(
           product -> attribute.apply(product).equals(expectation)
       ).collect(ImmutableList.toImmutableList());
     } else {
-      return productFilter.get().applyFilter(products).stream().filter(
+      return productFilter.get().applyFilter(productEntities).stream().filter(
           product -> attribute.apply(product).equals(expectation)
       ).collect(ImmutableList.toImmutableList());
     }

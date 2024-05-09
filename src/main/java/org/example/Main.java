@@ -10,7 +10,11 @@ import org.example.applications.DemoApplication;
 import org.example.applications.Player;
 import org.example.applications.Puller;
 import org.example.applications.Pusher;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 
+@EnableAutoConfiguration(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 public class Main {
 
 

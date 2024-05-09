@@ -51,6 +51,8 @@ docker run -it --rm --name test1 demo-pull-events
 ### Run it in Docker Compose
 
 ```bash
+docker rm -f $(docker ps -a -q)
+docker volume rm $(docker volume ls -q)
  docker compose up --force-recreate --build
 ```
 

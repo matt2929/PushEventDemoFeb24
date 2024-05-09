@@ -1,9 +1,12 @@
 package org.example.models.rest;
 
+import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicLong;
-import org.example.models.MongoDbClient;
-import org.example.models.coupons.Product;
+import org.example.models.coupons.ProductEntity;
+import org.example.models.mongodb.ProductCrudderMongo;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,32 +14,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@EnableAutoConfiguration(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 public class EmployeeController {
 
-  private static final String template = "Hello, %s!";
-  private final AtomicLong counter = new AtomicLong();
-
-
-  @GetMapping("/employees/{id}")
-  public Product greeting(@PathVariable UUID id) {
-    try (MongoDbClient mongoDbClient = new MongoDbClient()) {
-      mongoDbClient.init();
+  @GetMapping("/product/{id}")
+  public ProductEntity getProductById(@PathVariable UUID id) {
+    try (ProductCrudderMongo productCrudderMongo = new ProductCrudderMongo()) {
+      return productCrudderMongo.getProductById(id).orElseGet(() -> null);
     }
-    return Product.builder()
-        .uuid(id)
-        .itemType("foo")
-        .monetaryAmount(1d)
-        .build();
-
   }
 
-  @PostMapping("/createEmployee")
-  Product newEmployee(@RequestBody Product product) {
-    return Product.builder()
-        .uuid(UUID.randomUUID())
-        .itemType("I got it!")
-        .monetaryAmount(123d)
-        .build();
+  @GetMapping("/listproduct")
+  public List<ProductEntity> listProducts() {
+    try (ProductCrudderMongo productCrudderMongo = new ProductCrudderMongo()) {
+      return productCrudderMongo.getAllProducts();
+    }
+  }
+
+  @PostMapping("/createProduct")
+  String createProduct(@RequestBody ProductEntity productEntity) {
+    try (ProductCrudderMongo productCrudderMongo = new ProductCrudderMongo()) {
+      productCrudderMongo.insertEntity(productEntity);
+    }
+    return String.format("Successfully wrote %s", productEntity.uuid);
   }
 
 }

@@ -5,6 +5,6 @@ import java.util.List;
 
 public class ShoppingCart {
 
-  List<Product> cartContents;
+  List<ProductEntity> cartContents;
 
 }
