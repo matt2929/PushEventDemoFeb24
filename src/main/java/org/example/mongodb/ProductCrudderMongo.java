@@ -1,4 +1,4 @@
-package org.example.models.mongodb;
+package org.example.mongodb;
 
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
@@ -84,8 +84,8 @@ public class ProductCrudderMongo implements AutoCloseable {
   public Optional<ProductEntity> getProductById(final UUID uuid) {
     Document searchQuery = new Document();
     searchQuery.put("uuid", uuid.toString());
-    FindIterable<ProductEntity>
-        cursor = db.getCollection(EMPLOYEE_COLLECTION_NAME, ProductEntity.class).find(searchQuery);
+    FindIterable<ProductEntity> cursor =
+        db.getCollection(EMPLOYEE_COLLECTION_NAME, ProductEntity.class).find(searchQuery);
     ArrayList<ProductEntity> entities = new ArrayList<>();
     try (final MongoCursor<ProductEntity> cursorIterator = cursor.cursor()) {
       while (cursorIterator.hasNext()) {

@@ -1,12 +1,13 @@
-package org.example.models.rest;
+package org.example.rest;
 
 import java.util.List;
 import java.util.UUID;
 import org.example.models.coupons.ProductEntity;
-import org.example.models.mongodb.ProductCrudderMongo;
+import org.example.mongodb.ProductCrudderMongo;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @EnableAutoConfiguration(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
+@CrossOrigin(origins = "http://localhost:3000")
 public class EmployeeController {
 
   @GetMapping("/product/{id}")

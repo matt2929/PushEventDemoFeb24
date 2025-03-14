@@ -6,7 +6,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import org.example.applications.Application;
 import org.example.applications.Dealer;
-import org.example.applications.DemoApplication;
+import org.example.applications.EmployeeRestApi;
+import org.example.applications.LoadTest;
 import org.example.applications.Player;
 import org.example.applications.Puller;
 import org.example.applications.Pusher;
@@ -24,7 +25,8 @@ public class Main {
         "PULL", new Puller(),
         "PLAYER", new Player(),
         "DEALER", new Dealer(),
-        "SPRING", new DemoApplication()
+        "SPRING", new EmployeeRestApi(),
+        "LOADTEST", new LoadTest()
     );
     final String availableKeysStr = applicationKeyword.keySet().stream()
         .collect(Collectors.joining(", ", "[", "]"));
